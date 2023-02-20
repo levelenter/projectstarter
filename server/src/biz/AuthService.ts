@@ -14,7 +14,7 @@ import { Response } from './generated/Response';
 import { Transactional } from '../../../framework/lib/@Transactional';
 import { Rest } from '../../../framework/lib/@Rest';
 import config from 'config';
-import { Users } from '../../generated/dto/Users';
+import { Users } from '../generated/dto/Users';
 import { UsersDao } from '../dao/UserDao';
 import { RecoverableError } from '../../../framework/lib/RecoverableError';
 import { AuthUser } from '../dto/AuthUser';

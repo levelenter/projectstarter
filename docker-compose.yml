@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  db:
+    image: mysql:8.0
+    container_name: starter_db
+    #build: ./database
+    volumes:
+      - ./framework/database/docker/logs:/var/log/mysql
+      - ./framework/database/docker/data:/var/lib/mysql
+      - ./framework/database/docker/conf/:/etc/mysql/conf.d
+      - ./framework/database/:/docker-entrypoint-initdb.d
+      # - ./database/init:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_DATABASE=vr
+      - MYSQL_USER=levelenter
+      - MYSQL_PASSWORD=levelenter
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=Asia/Tokyo
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3307:3306
+    restart: always
+  # web:
+  #   image: node:alpine
+  #   container_name: blockvrock_web_build
+  #   ports:
+  #     - 3333:8080
+  #   volumes:
+  #     - .:/blockvrock
+  #   working_dir: /blockvrock
+  #   command: 'npm run prod:web'
+  #   # restart: always

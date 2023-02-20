@@ -10,7 +10,7 @@
     "c:preview": "cd client/ && npm run preview",
     "c:astro": "cd client/ && npm run astro",
     "s:dev": "cd server/ && npm run dev",
-    "all": "npm run entity && npm run rest",
+    "all": "npm run entity && npm run rest && npm run sql",
     "entity": "ts-node --project ./tsconfig.fw.json ./framework/generator/entity/index.ts",
     "rest": "ts-node --project ./tsconfig.fw.json ./framework/generator/rest/index.ts",
     "kill": "ts-node --project ./tsconfig.fw.json  ./framework/command/kill.ts",

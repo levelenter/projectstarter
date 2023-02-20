@@ -1,6 +1,6 @@
 import { ResultSetHeader } from 'mysql2';
-import { UsersDaoGen } from '../../generated/dao/UsersDaoGen';
-import { Users } from '../../generated/dto/Users';
+import { UsersDaoGen } from '../generated/dao/UsersDaoGen';
+import { Users } from '../generated/dto/Users';
 
 export class UsersDao extends UsersDaoGen {
   async loginCheck(mail: string, hash: string): Promise<Users[]> {
