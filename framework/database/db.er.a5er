@@ -1,0 +1,179 @@
+﻿# A5:ER FORMAT:16
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright © 2007 m.matsubara
+# A5:SQL Mk-2 Version 2.17.2 Copyright © 1997 - 2022 m.matsubara
+#  https://a5m2.mmatsubara.com
+
+[Manager]
+ProjectName=def_academy
+Author=dai.yamamoto
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=メイン
+PageInfo="メイン",6,"A1Landscape",$FFFFFF
+Domain=autokey=bigint(20) AUTO_INCREMENT
+DomainInfo="autokey","bigint(20) AUTO_INCREMENT","自動採番",""
+Domain=autokeyFk=bigint(20)
+DomainInfo="autokeyFk","bigint(20)","外部キー(自動採番にたいする）",""
+Domain=id=VARCHAR(32)
+DomainInfo="id","VARCHAR(32)","ユーザ一意キー",""
+Domain=fk=VARCHAR(32)
+DomainInfo="fk","VARCHAR(32)","外部キー",""
+Domain=flg=TINYINT(1)
+DomainInfo="flg","TINYINT(1)","MySQLのBOOLはTINYINT(1)だから",""
+Domain=varchar1024=VARCHAR(1024)
+DomainInfo="varchar1024","VARCHAR(1024)","",""
+Domain=varchar512=VARCHAR(512)
+DomainInfo="varchar512","VARCHAR(512)","",""
+Domain=varchar256=VARCHAR(256)
+DomainInfo="varchar256","VARCHAR(256)","",""
+Domain=varchar64=VARCHAR(64)
+DomainInfo="varchar64","VARCHAR(64)","",""
+Domain=varchar20=varchar(20)
+DomainInfo="varchar20","varchar(20)","",""
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=6
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Yu Gothic UI
+FontSize=11
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSType=5
+RDBMSTypeName=MySQL
+GenerateDropTableStatement=1
+DropTableIfExists=1
+BackupRestoreTempTable=0
+ForceQuoteIdentifier=1
+FkOnDeleteOption=on delete cascade
+FkOnUpdateOption=on update cascade
+CommonField="挿入日時","insert_dt","@DATETIME","NOT NULL",,"CURRENT_TIMESTAMP","",$FFFFFFFF
+CommonField="更新日時","update_dt","@DATETIME",,," CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP","",$FFFFFFFF
+CommonField="削除日時","delete_dt","@DATETIME",,,"","",$FFFFFFFF
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+UpperCaseKeyword=0
+ShowTag=1
+ShowCommonAttributes=1
+BugFixEntityWidth=0
+
+[Entity]
+PName=user_block_contents
+LName=user_block_contents
+Comment=
+TableOption=
+Page=メイン
+Left=650
+Top=550
+Field="ユーザブロックコンテンツID","user_block_contents_id","int auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="マスターID","project_id","varchar(30)","NOT NULL",,"","",$FFFFFFFF,""
+Field="ユーザID","user_id","int","NOT NULL",,"","",$FFFFFFFF,""
+Field="メンバーID","member_id","int",,,"-1","",$FFFFFFFF,""
+Field="title","title","varchar(255)",,,"","",$FFFFFFFF,""
+Field="ブロックプログラム","block_xml","mediumtext",,,"","",$FFFFFFFF,""
+Field="ブロックのコード","block_code","mediumtext",,,"","",$FFFFFFFF,""
+Field="js_code","js_code","mediumtext",,,"","",$FFFFFFFF,""
+Field="is_publish","is_publish","tinyint","NOT NULL",,"0","",$FFFFFFFF,""
+Field="is_group_publish","is_group_publish","tinyint","NOT NULL",,"0","",$FFFFFFFF,""
+Field="likeCount","likeCount","int","NOT NULL",,"0","",$FFFFFFFF,""
+Field="version_no","version_no","int","NOT NULL",,"2","",$FFFFFFFF,""
+Field="挿入日時","insert_dt","datetime",,,"CURRENT_TIMESTAMP","",$FFFFFFFF,""
+Field="更新日時","update_dt","datetime on update CURRENT_TIMESTAMP",,,"CURRENT_TIMESTAMP","",$FFFFFFFF,""
+Field="削除日時","delete_dt","datetime",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20221219212022
+Position="メイン",650,550
+ZOrder=120
+
+[Entity]
+PName=users
+LName=ユーザー
+Comment=
+TableOption=
+Page=メイン
+Left=650
+Top=1350
+Field="ユーザーID","user_id","int auto_increment","NOT NULL",0,"","ユーザーID\n",$FFFFFFFF,""
+Field="name","name","varchar(50)",,,"","",$FFFFFFFF,""
+Field="mail","mail","varchar(255)",,,"","",$FFFFFFFF,""
+Field="pass","pass","varchar(50)",,,"","",$FFFFFFFF,""
+Field="pass_v2","pass_v2","varchar(512)",,,"","",$FFFFFFFF,""
+Field="belong_to","belong_to","varchar(40)",,,"","",$FFFFFFFF,""
+Field="join_time","join_time","datetime",,,"CURRENT_TIMESTAMP","",$FFFFFFFF,""
+Field="auth_tags","auth_tags","varchar(50)",,,"\quser\q","",$FFFFFFFF,""
+Field="quite_time","quite_time","datetime",,,"","",$FFFFFFFF,""
+Field="poly_key","poly_key","varchar(50)",,,"","",$FFFFFFFF,""
+Field="ログイン回数","login_count","int",,,"1","ログイン回数\n",$FFFFFFFF,""
+Field="is課金","is_purchase","*flg",,,"0","",$FFFFFFFF,""
+Field="プロジェクト上限","limit_project","DOUBLE",,,"2","-1:nolimit,",$FFFFFFFF,""
+Field="最終ログイン日時","last_login_dt","datetime on update CURRENT_TIMESTAMP",,,"CURRENT_TIMESTAMP","最終ログイン日時\n",$FFFFFFFF,""
+Field="有効期限最終日時","datetime_expiry","TIMESTAMP",,,"null","",$FFFFFFFF,""
+Field="update_dt","update_dt","datetime on update CURRENT_TIMESTAMP",,,"CURRENT_TIMESTAMP","",$FFFFFFFF,""
+Field="insert_dt","insert_dt","datetime",,,"CURRENT_TIMESTAMP","",$FFFFFFFF,""
+Field="delete_dt","delete_dt","datetime",,,"","",$FFFFFFFF,""
+Field="is_recieve_mail","is_recieve_mail","char(1)",,,"\q1\q","",$FFFFFFFF,""
+Field="join_event_tags","join_event_tags","varchar(50)",,,"\q2016axis\q","",$FFFFFFFF,""
+Field="oauth_uid","oauth_uid","varchar(100)",,,"","",$FFFFFFFF,""
+Index=mail=2,mail
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20230217090755
+Position="メイン",650,1350,1325,1080
+ZOrder=118
+
+[Entity]
+PName=notify_message
+LName=通知メッセージ
+Comment=
+TableOption=
+Page=メイン
+Left=2350
+Top=600
+Field="通知ID","notify_id","*autokey",,0,"","",$FFFFFFFF,""
+Field="タイトル","title","*varchar256",,,"","",$FFFFFFFF,""
+Field="通知メッセージ","notify_message","*varchar1024",,,"","",$FFFFFFFF,""
+Field="通知日時","notify_dt","@DATETIME",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20210930162617
+Position="メイン",2350,600
+ZOrder=127
+
+[Entity]
+PName=class_members
+LName=クラスメンバー
+Comment=
+TableOption=
+Page=メイン
+Left=2350
+Top=1050
+Field="クラスユーザーID","user_id","INT","NOT NULL",0,"","ユーザーID\n",$FFFFFFFF,""
+Field="メンバーID","member_id","INT","NOT NULL",1,"","",$FFFFFFFF,""
+Field="クラス名","className","varchar(100)","NOT NULL",,"","クラス名",$FFFFFFFF,""
+Field="name","name","varchar(50)",,,"","",$FFFFFFFF,""
+Field="最終ログイン日時","last_login_dt","",,,"","最終ログイン日時\n",$FFFFFFFF,""
+Field="ログイン回数","login_count","int",,,"1","ログイン回数\n",$FFFFFFFF,""
+Field="update_dt","update_dt","datetime on update CURRENT_TIMESTAMP",,,"CURRENT_TIMESTAMP","",$FFFFFFFF,""
+Field="insert_dt","insert_dt","datetime",,,"CURRENT_TIMESTAMP","",$FFFFFFFF,""
+Field="delete_dt","delete_dt","datetime",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20230204204232
+Position="メイン",2350,1050
+ZOrder=128
