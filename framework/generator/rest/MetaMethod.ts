@@ -130,13 +130,14 @@ export class MetaMethod {
       let importSentence = '';
       const classDefType = findClassDef(p.typeWithoutArray);
       if (classDefType === 'entity') {
-        importSentence = `import { ${p.typeWithoutArray} } from '${refDistDto}/${p.typeWithoutArray}';`;
+        importSentence = `import type { ${p.typeWithoutArray} } from '${refDistDto}/${p.typeWithoutArray}';`;
       } else if (classDefType === 'dto') {
-        importSentence = `import { ${p.typeWithoutArray} } from '${refDistDto}/${p.typeWithoutArray}';`;
+        importSentence = `import type { ${p.typeWithoutArray} } from '${refDistDto}/${p.typeWithoutArray}';`;
       } else {
-        throw new Error(
-          `${this.name}の引数${p.name}で、/entityまたは/entity/generated、/param以外のオブジェクトは指定できません。`
-        );
+        importSentence = `type ${p.typeWithoutArray} = any;`
+        // throw new Error(
+        //   `${this.name}の引数${p.name}で、/entityまたは/entity/generated、/param以外のオブジェクトは指定できません。`
+        // );
       }
       return importSentence;
     });
@@ -155,13 +156,15 @@ export class MetaMethod {
       let importSentence = '';
       const classDefType = findClassDef(p.typeWithoutArray);
       if (classDefType === 'entity') {
-        importSentence = `import { ${p.typeWithoutArray} } from '${refDistDto}/${p.typeWithoutArray}';`;
+        importSentence = `import type { ${p.typeWithoutArray} } from '${refDistDto}/${p.typeWithoutArray}';`;
       } else if (classDefType === 'dto') {
-        importSentence = `import { ${p.typeWithoutArray} } from '${refDistDto}/${p.typeWithoutArray}';`;
+        importSentence = `import type { ${p.typeWithoutArray} } from '${refDistDto}/${p.typeWithoutArray}';`;
       } else {
-        throw new Error(
-          `${this.name}の引数${p.name}で、/entityまたは/entity/generated、/param以外のオブジェクトは指定できません。`
-        );
+        importSentence = `type ${p.typeWithoutArray} = any;`
+
+        // throw new Error(
+        //   `${this.name}の引数${p.name}で、/entityまたは/entity/generated、/param以外のオブジェクトは指定できません。`
+        // );
       }
       return importSentence;
     });
@@ -229,13 +232,14 @@ export class MetaMethod {
     // entity or entity/genaratedから探す
     const classDefType = findClassDef(typeArg);
     if (classDefType === 'entity') {
-      return `import { ${typeArg} } from '${refDistDto}/${typeArg}';`;
+      return `import type { ${typeArg} } from '${refDistDto}/${typeArg}';`;
     } else if (classDefType === 'dto') {
-      return `import { ${typeArg} } from '${refDistDto}/${typeArg}';`;
+      return `import type { ${typeArg} } from '${refDistDto}/${typeArg}';`;
     } else {
-      throw new Error(
-        `${this.name}の戻り値型引数${returnClass}で、/entityまたは/entity/generated以外のオブジェクトは指定できません。`
-      );
+      return  `type ${typeArg} = any;`
+      // throw new Error(
+      //   `${this.name}の戻り値型引数${returnClass}で、/entityまたは/entity/generated以外のオブジェクトは指定できません。`
+      // );
     }
   }
 }

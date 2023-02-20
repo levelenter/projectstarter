@@ -4,6 +4,7 @@ import passport from "./configuredPasspor"
 const userAuthRouter = express.Router();
 
 import {config as dotEnvConfig} from 'dotenv';
+import { AuthService } from "../biz/AuthService";
 dotEnvConfig();
 
 
@@ -17,6 +18,9 @@ userAuthRouter.post(
     const token = jwt.sign(payload, process.env.JWT_SECRET  as string, {
       expiresIn: "1m",
     });
+    const userAuth = new AuthService();
+    // userAuth.
+
     res.json({ user, token });
   }
 );

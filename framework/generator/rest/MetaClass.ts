@@ -44,7 +44,7 @@ export class MetaClass {
 
     // レスポンスクラスをインポートする
     if (hasResponseType) {
-      result.push(`import { Response } from '${frameWorkBizDir}Response';`);
+      result.push(`import type { Response } from '${frameWorkBizDir}Response';`);
     }
     return distinctArray(result);
   }
