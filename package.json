@@ -10,10 +10,10 @@
     "c:preview": "cd client/ && npm run preview",
     "c:astro": "cd client/ && npm run astro",
     "s:dev": "cd server/ && npm run dev",
+    "s:kill": "cd server/ && npm run kill",
     "all": "npm run entity && npm run rest && npm run sql",
     "entity": "ts-node --project ./tsconfig.fw.json ./framework/generator/entity/index.ts",
     "rest": "ts-node --project ./tsconfig.fw.json ./framework/generator/rest/index.ts",
-    "kill": "ts-node --project ./tsconfig.fw.json  ./framework/command/kill.ts",
     "sql": "ts-node --project ./tsconfig.fw.json  ./framework/generator/sql/index.ts"
   },
   "repository": {
@@ -30,11 +30,12 @@
     "body-parser": "^1.20.1",
     "config": "^3.3.9",
     "cookie-parser": "^1.4.6",
-    "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "leaf_generator": "github:levelenter/leaf-generator",
+    "mysql": "^2.18.1",
     "mysql2": "^3.1.2",
-    "passport-google-oauth": "^2.0.0"
+    "passport-google-oauth": "^2.0.0",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.3",

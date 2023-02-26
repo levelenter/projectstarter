@@ -87,7 +87,7 @@ export class MetaMethod {
       this.returnType
     } {\n`;
     str += `    return super.restCall<${this.notPromiseReturnType}>`;
-    str += `(${this.httpMethod}, ${this.uri}, arguments);\n`;
+    str += `(${this.httpMethod}, "/api" + ${this.uri}, arguments);\n`;
     str += `  }\n`;
     return str;
   }
@@ -105,6 +105,9 @@ export class MetaMethod {
     const paramNames = this.params.map((p) => p.toParamNamesArrayString()).join(',');
     let str = '';
     str += `generatedRest.${this.httpMethodNoQuote}(${this.uri},\n`;
+    if(this.isRequireToken){
+      str += `passport.authenticate("jwt", { session: false }) ,\n`;
+    }
     str += `async (req: express.Request, res: express.Response) => {\n`;
     str += `  const biz = new ${className}();\n`;
     str += `  try{\n`;

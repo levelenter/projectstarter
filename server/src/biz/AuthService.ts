@@ -2,26 +2,14 @@
 import jwt from 'jsonwebtoken';
 import { PoolConnection } from 'mysql2/promise';
 import crypto from 'crypto';
-// import { UsersDao } from '../dao/UsersDao';
-// import { RecoverableError } from '../../framework/biz/RecoverableError';
-// import { AuthUser } from '../dto/AuthUser';
-// import { Users } from '../dto/generated/Users';
-// import { OAuthResult } from '../dto/OAuthResult';
-
-// import * as fs from 'fs';
-// import path from 'path';
 import { Response } from './generated/Response';
 import { Transactional } from '../../../framework/lib/@Transactional';
 import { Rest } from '../../../framework/lib/@Rest';
-import config from 'config';
 import { Users } from '../generated/dto/Users';
 import { UsersDao } from '../dao/UserDao';
 import { RecoverableError } from '../../../framework/lib/RecoverableError';
 import { AuthUser } from '../dto/AuthUser';
-
-// const PRIVATEKEY = fs.readFileSync(
-//   path.join(process.cwd(), './__dev/authentication/rsa-private.pem')
-// );
+import { uuid } from 'uuidv4';
 
 export class AuthService {
   connection!: PoolConnection;
@@ -44,25 +32,19 @@ export class AuthService {
    * @param userId
    * @returns
    */
-  createJwtToken(name: string, userId: number): string {
+  createJwtToken(name: string, userId: string): string {
     // 認証トークンを作成以後、APIアクセスにはトークンが必要
-    // const algorithm: Algorithm = 'RS256';
-    // const options: SignOptions = {
-    //   // algorithm: algorithm,
-    //   expiresIn: '12h',
-    //   subject: 'Access Token',
-    // };
     const payload = {
       name: name,
       userId: userId,
     };
-    // const token = jwt.sign(payload, PRIVATEKEY, options);
-    // const token = jwt.sign(payload, options);
-
-    const token = jwt.sign(payload, config.get('secret'), {
+    const PRIVATEKEY =  "levelenter!!"
+    const token = jwt.sign(payload, PRIVATEKEY, {
+      algorithm: 'RS256',
       expiresIn: '12h',
-    }); // 第1引数のpayloadに、MySQLのresultsはNG
-    return token;
+      subject: 'Access Token',
+    });
+   return token;
   }
 
   async onLoginSuccess(user: Users, con: PoolConnection): Promise<void> {
@@ -75,6 +57,17 @@ export class AuthService {
       console.error('ログインカウントの更新に失敗');
       throw error;
     }
+  }
+
+  @Rest('/v1/AuthService/getLoginUserInfo', 'get', true)
+  @Transactional('connection')
+  async getLoginUserInfo(mail: string): Promise<Response<any>> {
+    // const dao = new UsersDao(this.connection);
+    // const results = await dao.getUserByMail(mail);
+    // const user = results[0];
+    // if (!user) throw new RecoverableError('メールアドレスが間違っています');
+    // const authUser = AuthUser.fromUser(user, this.createJwtToken(user.name!, user.user_id!));
+    return new Response<any>({ok:"ok"})
   }
 
   @Rest('/v1/AuthService/forceLogin', 'post', true)
@@ -138,13 +131,13 @@ export class AuthService {
     if (results.length > 0) throw new RecoverableError('すでに存在するメールアドレスです。');
     const hash = AuthService.hashPassword(password);
 
-    const resultInsert = await dao.insertUser(create_name, mail, hash, auth_tags, belong_to, "");
-    const userId = resultInsert.insertId;
+    const user_id = uuid();
+    await dao.insertUser(user_id,create_name, mail, hash, auth_tags, belong_to, "");
     const authUser = new AuthUser();
-    authUser.user_id = resultInsert.insertId;
+    authUser.user_id = user_id
     authUser.user_name = create_name;
     authUser.auth_tags = auth_tags;
-    authUser.token = this.createJwtToken(create_name, userId);
+    authUser.token = this.createJwtToken(create_name, user_id);
     return new Response<AuthUser>(authUser);
   }
 }

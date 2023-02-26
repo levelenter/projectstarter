@@ -41,7 +41,6 @@ export class MetaClass {
 
     // ベースクラスをインポートする
     result.push(`import { GeneratedBizBase } from '../GeneratedBizBase';`);
-
     // レスポンスクラスをインポートする
     if (hasResponseType) {
       result.push(`import type { Response } from '${frameWorkBizDir}Response';`);

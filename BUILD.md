@@ -3,7 +3,8 @@ npm create astro@latest
 
 `client` dir make this
 `npm run build`
-
+`npm install @astrojs/vue`
+`npm install @astrojs/tailwind tailwindcss`
 
 # integration node
 

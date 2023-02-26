@@ -1,25 +1,24 @@
 import passport  from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import {
-  Strategy as JWTStrategy,
-  ExtractJwt
-} from "passport-jwt";
+import { Strategy as JWTStrategy } from "passport-jwt";
 // import {OAuth2Strategy as GoogleStrategy} from 'passport-google-oauth'
 
 import {config as dotEnvConfig} from 'dotenv';
+const secret = "levelenter!!"
 dotEnvConfig();
 
 // 1 passport-localの設定
 passport.use(
   new LocalStrategy(
     {
-      usernameField: "username",
+      usernameField: "mail",
       passwordField: "password",
       session: false,
     },
-    (username: string, password: string, done: any) => {
-      if (username === "hoge" && password === "fuga") {
-        return done(null, username);
+    (mail: string, password: string, done: any) => {
+      console.log("local strategy ")
+      if (mail === "hoge" && password === "fuga") {
+        return done(null, mail);
       } else {
         return done(null, false, {
           message: "usernameまたはpasswordが違います",
@@ -29,14 +28,24 @@ passport.use(
   )
 );
 
-// 2 passport-jwtの設定
-const opts = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey:  process.env.JWT_SECRET,
-};
-passport.use(new JWTStrategy(opts, (jwt_payload: any, done: any) => {
-    done(null, jwt_payload);
-}));
+const cookieExtractor = req => {
+  let jwt = null 
+  if (req && req.cookies) {
+      jwt = req.cookies['jwt']
+  }
+  return jwt
+}
+
+passport.use('jwt', new JWTStrategy({
+  jwtFromRequest: cookieExtractor,
+  secretOrKey: secret
+}, (jwtPayload, done) => {
+  const { expiration } = jwtPayload
+  if (Date.now() > expiration) {
+      done('Unauthorized', false)
+  }
+  done(null, jwtPayload)
+}))
 
 // https://console.cloud.google.com/apis/credentials?project=block-vrock-1532736157223
 // passport.use(new GoogleStrategy({

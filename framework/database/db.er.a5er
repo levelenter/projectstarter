@@ -76,7 +76,7 @@ TableOption=
 Page=メイン
 Left=400
 Top=550
-Field="ユーザーID","user_id","int auto_increment","NOT NULL",0,"","ユーザーID\n",$FFFFFFFF,""
+Field="ユーザーID","user_id","*varchar64","NOT NULL",0,"","ユーザーID\n",$FFFFFFFF,""
 Field="name","name","varchar(50)",,,"","",$FFFFFFFF,""
 Field="mail","mail","varchar(255)",,,"","",$FFFFFFFF,""
 Field="pass","pass","varchar(512)",,,"","",$FFFFFFFF,""
@@ -97,7 +97,7 @@ Index=mail=2,mail
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20230220140427
+ModifiedDateTime=20230220153145
 Position="メイン",400,550,1325,1080
 ZOrder=118
 

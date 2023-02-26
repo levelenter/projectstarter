@@ -6,7 +6,7 @@ SET CHARACTER_SET_CONNECTION = utf8;
 
 
 -- Project Name : def_academy
--- Date/Time    : 2023/02/20 14:23:20
+-- Date/Time    : 2023/02/20 15:32:20
 -- Author       : dai.yamamoto
 -- RDBMS Type   : MySQL
 -- Application  : A5:SQL Mk-2
@@ -29,7 +29,7 @@ create table `notify_message` (
 drop table if exists `users` cascade;
 
 create table `users` (
-  `user_id` int auto_increment not null comment 'ユーザーID:ユーザーID'
+  `user_id` VARCHAR(64) not null comment 'ユーザーID:ユーザーID'
   , `name` varchar(50) comment 'name'
   , `mail` varchar(255) comment 'mail'
   , `pass` varchar(512) comment 'pass'

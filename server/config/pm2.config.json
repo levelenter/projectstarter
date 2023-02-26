@@ -1,0 +1,16 @@
+{
+  "name": "blockvrock",
+  "script": "server_build/src/server/server.js",
+  "env": {
+    "NODE_ENV": "production",
+    "name": "blockvrock"
+  },
+  "env_production": {
+    "NODE_ENV": "production",
+    "name": "blockvrock"
+  },
+  "env_beta": {
+    "NODE_ENV": "betaversion",
+    "name": "blockvrock_beta"
+  }
+}

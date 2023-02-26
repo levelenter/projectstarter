@@ -92,7 +92,8 @@ export function generateRestAPI(classes: MetaClass[], filePath: string) {
   src += `import { errorHandler } from './web_handler';\n`;
   src += `import { tokenHandler } from './tokenHandler';\n`;
   src += `${importArrayString}\n\n\n`;
-  src += `export const generatedRest = express.Router();\n\n`;
+  src += `export const generatedRest = express.Router();\n`;
+  src += `import passport  from "passport";\n\n`;
 
   // ルーティングストリング
   src += getAllExpressRoutingString(classes);

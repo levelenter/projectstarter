@@ -11,14 +11,14 @@ export class UsersDaoGen extends BaseDao {
     return await this.db.query<Users>(sql);
   }
   // Usersを主キーで取得
-  async selectById(user_id: number): Promise<Users> {
+  async selectById(user_id: string): Promise<Users> {
     const sql = 'SELECT * FROM users WHERE  user_id = ?  ';
     const params = [user_id];
     const results = await this.db.query<Users>(sql, params);
     return results[0];
   }
   // Usersを主キーで削除
-  async deleteById(user_id: number): Promise<ResultSetHeader> {
+  async deleteById(user_id: string): Promise<ResultSetHeader> {
     const sql = 'DELETE FROM users WHERE  user_id = ?  ';
     const params = [user_id];
     return await this.db.execute(sql, params);

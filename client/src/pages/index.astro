@@ -1,6 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+import LoginPanel from '../components/LoginPanel.vue';
+
+// const cookie = Astro.request.headers.get('cookie');
+// Astro.response.headers.append("Access-Control-Allow-Origin","*")
+// Astro.response.headers.append("Access-Control-Allow-Methods","POST,GET,PUT,DELETE")
+// Astro.response.headers.append("Access-Control-Allow-Headers","Content-Type")
 ---
 
 <Layout title="Welcome to Astro.">
@@ -33,11 +39,7 @@ import Card from '../components/Card.astro';
 			/>
 		</ul>
 		
-		<form action="/login" method="POST">
-			<input type="text" name="username" ><br>
-			<input type="password" name="password" ><br>
-			<input type="submit" />
-		</form>
+		<LoginPanel client:only></LoginPanel>
 	
 	</main>
 </Layout>

@@ -14,7 +14,7 @@ export class UsersDao extends UsersDaoGen {
     return this.db.query(sql, [mail, password]);
   }
 
-  async updateLoginCount(login_count: number, user_id: number): Promise<ResultSetHeader> {
+  async updateLoginCount(login_count: number, user_id: string): Promise<ResultSetHeader> {
     const sql = 'UPDATE users SET login_count = ? WHERE user_id = ? ';
     return this.db.execute(sql, [login_count, user_id]);
   }
@@ -24,7 +24,7 @@ export class UsersDao extends UsersDaoGen {
     return this.db.query(sql, [mail]);
   }
 
-  async getUserByUserId(user_id: number): Promise<Users[]> {
+  async getUserByUserId(user_id: string): Promise<Users[]> {
     const sql = 'SELECT * FROM users WHERE user_id = ? ';
     return this.db.query(sql, [user_id]);
   }
@@ -35,6 +35,7 @@ export class UsersDao extends UsersDaoGen {
   }
 
   async insertUser(
+    user_id :string,
     name: string,
     mail: string,
     hash: string,
@@ -43,8 +44,8 @@ export class UsersDao extends UsersDaoGen {
     oauth_uid: string
   ): Promise<ResultSetHeader> {
     const insert_sql =
-      'insert into users (name,mail,pass,auth_tags,belong_to,oauth_uid) values (?,?, ? ,?,? ,?)';
-    return this.db.execute(insert_sql, [name, mail, hash, auth_tags, belong_to, oauth_uid]);
+      'insert into users (user_id,name,mail,pass,auth_tags,belong_to,oauth_uid) values (?,?, ? ,?,? ,?)';
+    return this.db.execute(insert_sql, [user_id,name, mail, hash, auth_tags, belong_to, oauth_uid]);
   }
 
   async updatePassV2(user_id: number, new_hash: string): Promise<ResultSetHeader> {

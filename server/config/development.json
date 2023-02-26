@@ -1,0 +1,21 @@
+{
+  "secret": "levelenter_secret!!",
+  "server_host": "http://localhost",
+  "server_port": 8888,
+  "db": {
+    "host": "127.0.0.1",
+    "database": "vr",
+    "port": 3306,
+    "user": "levelenter",
+    "password": "levelenter",
+    "ssl": {
+      "ca": "."
+    }
+  },
+  "bucket": "blockvrockdev",
+  "rootkey": "./__dev/secret/rootkey.json",
+  "log": {
+    "path": "./log/blockvrock.log",
+    "level": "debug"
+  }
+}

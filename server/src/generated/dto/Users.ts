@@ -1,7 +1,7 @@
 // ユーザーのエンティティ
 export class Users {
-  // ユーザーID DB型(int auto_increment)
-  public user_id?: number;
+  // ユーザーID DB型(*varchar64)
+  public user_id?: string;
   // name DB型(varchar(50))
   public name?: string;
   // mail DB型(varchar(255))
@@ -55,7 +55,7 @@ export class Users {
     entity.delete_dt = record['delete_dt'];
     return entity;
   }
-  getPrimaryKeys(): { "user_id": number | undefined } {
+  getPrimaryKeys(): { "user_id": string | undefined } {
     const entity = {
     "user_id" : this.user_id 
     }
