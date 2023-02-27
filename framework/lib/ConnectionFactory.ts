@@ -8,11 +8,11 @@ import { PoolConnection, Pool } from 'mysql2/promise';
 export const connectionPool: Pool = mysql
   .createPool({
     connectionLimit: 10,
-    host: config.get<string>('db.host'),
-    database: config.get<string>('db.database'),
-    user: config.get<string>('db.user'),
-    password: config.get<string>('db.password'),
-    port: config.get<number>('db.port'),
+    host: config.get('db.host'),
+    database: config.get('db.database'),
+    user: config.get('db.user'),
+    password: config.get('db.password'),
+    port: config.get('db.port'),
   })
   .promise();
 

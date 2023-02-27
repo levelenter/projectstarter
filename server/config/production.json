@@ -3,9 +3,9 @@
   "server_host": "https://blockvrock.com",
   "server_port": 8080,
   "db": {
-    "host": "lvedb.c4bbetezy9ih.ap-northeast-1.rds.amazonaws.com",
-    "database": "vr",
-    "port": 3306,
+    "host": "localhost",
+    "database": "starter",
+    "port": 3307,
     "user": "levelenter",
     "password": "levelenter",
     "//ssl": "root path is project root",
@@ -14,11 +14,5 @@
       "/// ca": "./server/secret/rds-ca-2019-ap-northeast-1.pem",
       "ca": "./config/secret/rds-combined-ca-bundle.pem"
     }
-  },
-  "bucket": "blockvrock",
-  "rootkey": "../secret/rootkey.json",
-  "log": {
-    "path": "./log/blockvrock.log",
-    "level": "info"
   }
 }

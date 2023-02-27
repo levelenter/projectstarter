@@ -7,6 +7,7 @@ import userAuthRouter from "./security/userAuthRouter";
 import {generatedRest} from "./biz/generated/generatedRest"
 import { allowCrossDomainRouter } from './security/allowCrossDomainRouter';
 import config from 'config';
+// import passport from 'passport';
 dotEnvConfig(); 
 
 // 1 expressの設定

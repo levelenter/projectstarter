@@ -1,32 +1,7 @@
 import passport  from "passport";
-import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as JWTStrategy } from "passport-jwt";
 // import {OAuth2Strategy as GoogleStrategy} from 'passport-google-oauth'
-
-import {config as dotEnvConfig} from 'dotenv';
 const secret = "levelenter!!"
-dotEnvConfig();
-
-// 1 passport-localの設定
-passport.use(
-  new LocalStrategy(
-    {
-      usernameField: "mail",
-      passwordField: "password",
-      session: false,
-    },
-    (mail: string, password: string, done: any) => {
-      console.log("local strategy ")
-      if (mail === "hoge" && password === "fuga") {
-        return done(null, mail);
-      } else {
-        return done(null, false, {
-          message: "usernameまたはpasswordが違います",
-        });
-      }
-    }
-  )
-);
 
 const cookieExtractor = req => {
   let jwt = null 
@@ -42,7 +17,7 @@ passport.use('jwt', new JWTStrategy({
 }, (jwtPayload, done) => {
   const { expiration } = jwtPayload
   if (Date.now() > expiration) {
-      done('Unauthorized', false)
+    done('Unauthorized', false)
   }
   done(null, jwtPayload)
 }))

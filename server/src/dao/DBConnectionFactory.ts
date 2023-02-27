@@ -1,21 +1,23 @@
 // 参考 https://qiita.com/PianoScoreJP/items/7ed172cd0e7846641e13
 
 import mysql from 'mysql2/promise';
-import { config } from 'config';
+import config  from 'config';
 
 /**
  * コンフィグからコネクションを生成
  */
 console.log('config', config);
 export class DBConnectionFactory{
+
   public connection = mysql.createPool({
     connectionLimit: 50,
-    host: config.get<string>('db.host'),
-    database: config.get<string>('db.database'),
-    user: config.get<string>('db.user'),
-    password: config.get<string>('db.password'),
+    host: config.get('db.host'),
+    database: config.get('db.database'),
+    user: config.get('db.user'),
+    password: config.get('db.password'),
+    port:config.get("db.port"),
     ssl: {
-      ca: config.get<string>('db.ssl.ca'),
+      ca: config.get('db.ssl.ca'),
       rejectUnauthorized: false,
     },
   });

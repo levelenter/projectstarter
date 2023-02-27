@@ -40,12 +40,11 @@ export class UsersDao extends UsersDaoGen {
     mail: string,
     hash: string,
     auth_tags: string,
-    belong_to: string,
     oauth_uid: string
   ): Promise<ResultSetHeader> {
     const insert_sql =
-      'insert into users (user_id,name,mail,pass,auth_tags,belong_to,oauth_uid) values (?,?, ? ,?,? ,?)';
-    return this.db.execute(insert_sql, [user_id,name, mail, hash, auth_tags, belong_to, oauth_uid]);
+      'insert into users (user_id,name,mail,pass,auth_tags,oauth_uid) values (?,?, ? ,?,? ,?)';
+    return this.db.execute(insert_sql, [user_id,name, mail, hash, auth_tags,  oauth_uid]);
   }
 
   async updatePassV2(user_id: number, new_hash: string): Promise<ResultSetHeader> {

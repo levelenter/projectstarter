@@ -40,12 +40,14 @@ export class AuthService {
     };
     const PRIVATEKEY =  "levelenter!!"
     const token = jwt.sign(payload, PRIVATEKEY, {
-      algorithm: 'RS256',
-      expiresIn: '12h',
+      algorithm: 'HS256',//RS256 // RSだと公開鍵と秘密鍵が必要
+      expiresIn: '2h',
       subject: 'Access Token',
     });
    return token;
   }
+
+
 
   async onLoginSuccess(user: Users, con: PoolConnection): Promise<void> {
     // ログインカウントを更新
@@ -61,7 +63,7 @@ export class AuthService {
 
   @Rest('/v1/AuthService/getLoginUserInfo', 'get', true)
   @Transactional('connection')
-  async getLoginUserInfo(mail: string): Promise<Response<any>> {
+  async getLoginUserInfo(mail: string): Promise<Response<AuthUser>> {
     // const dao = new UsersDao(this.connection);
     // const results = await dao.getUserByMail(mail);
     // const user = results[0];
@@ -95,11 +97,7 @@ export class AuthService {
     const results = await dao.loginCheck(mail, hash);
     let user = results[0];
     if (!user) {
-      // V2用のログインができないなら、V1でログイン
-      const v1Results = await dao.loginCheckV1(mail, password);
-      user = v1Results[0];
-      if (!user)
-        throw new RecoverableError('メールアドレスまたはパスワードが間違っています[v1 try]');
+      throw new RecoverableError('メールアドレスまたはパスワードが間違っています[v1 try]');
     }
     console.log('login user', user);
     await this.onLoginSuccess(user, this.connection);
@@ -118,8 +116,7 @@ export class AuthService {
     mail: string,
     password: string,
     create_name: string,
-    auth_tags: string,
-    belong_to: string
+    auth_tags: string
   ): Promise<Response<AuthUser>> {
     // メールアドレスが入力されていない
     if (!mail) throw new RecoverableError('メールアドレスを入力してください');
@@ -132,7 +129,7 @@ export class AuthService {
     const hash = AuthService.hashPassword(password);
 
     const user_id = uuid();
-    await dao.insertUser(user_id,create_name, mail, hash, auth_tags, belong_to, "");
+    await dao.insertUser(user_id,create_name, mail, hash, auth_tags,"");
     const authUser = new AuthUser();
     authUser.user_id = user_id
     authUser.user_name = create_name;

@@ -1,19 +1,17 @@
 {
   "secret": "levelenter_secret!!",
-  "server_host": "localhost",
-  "server_port": 80,
+  "server_host": "http://localhost",
+  "server_port": 8888,
   "db": {
     "host": "127.0.0.1",
-    "database": "vr",
-    "user": "levelenter",
-    "password": "levelenter",
+    "database": "starter",
+    "port": 3307,
+    "user": "root",
+    "password": "root",
     "ssl": {
-      "ca": "./config/secret/rds-ca-2019-root.pem"
+      "ca": "."
     }
   },
-  "rootkey": "./__dev/secret/rootkey.json",
-
-  "bucket": "blockvrockdev",
   "log": {
     "path": "./log/blockvrock.log",
     "level": "debug"
