@@ -1,6 +1,6 @@
 {
   "name": "blockvrock",
-  "script": "server_build/src/server/server.js",
+  "script": "server/dist/src/index.js",
   "env": {
     "NODE_ENV": "production",
     "name": "blockvrock"

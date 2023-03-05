@@ -7,7 +7,7 @@ import {
 } from "./generateExpressRouter";
 import { checkDecorater } from "./checkDecorater";
 import { config }  from "../config/config"
-import { copyFileSync } from "fs-extra";
+// import { copyFileSync } from "fs-extra";
 import { createIfNotExist } from './restUtil';
 
 const clientPath = config.output_client + "/biz/remote";
@@ -16,8 +16,7 @@ const generatedDir = config.rest_scan_dir + "/generated/"
 
 const expressRouteGeneratePath = generatedDir + "generatedRest.ts"; // Service classと同じ場所に出力
 const ignoreTokenFilePath = generatedDir + "ignoreTokenUriList.ts";
-const distPath = config.output_client +"/biz/";
-const libPath = "./framework/lib/"
+
 
 
 console.log("-------------------------");
@@ -42,27 +41,32 @@ generateRestAPI(classes, expressRouteGeneratePath);
 ignoreTokenFileCreate(classes, ignoreTokenFilePath);
 console.log("サーバーサイド生成 done");
 
-console.log("-------------------------");
-console.log("- フレームワークコードコピー");
-console.log("-------------------------");
+// console.log("-------------------------");
+// console.log("- フレームワークコードコピー");
+// console.log("-------------------------");
 
-copyFileSync(`${libPath}MessageDialog.ts`,`${distPath}MessageDialog.ts`);
-copyFileSync(`${libPath}GeneratedBizBase.ts`,`${distPath}GeneratedBizBase.ts`);
-copyFileSync(`${libPath}ErrorType.ts`,`${distPath}ErrorType.ts`);
-copyFileSync(`${libPath}Session.ts`,`${distPath}Session.ts`);
-copyFileSync(`${libPath}ErrorHandler.ts`,`${distPath}ErrorHandler.ts`);
-copyFileSync(`${libPath}momentExtends.ts`,`${distPath}momentExtends.ts`);
-copyFileSync(`${libPath}utils.ts`,`${distPath}utils.ts`);
-copyFileSync(`${libPath}Response.ts`,`${distPath}Response.ts`)
-copyFileSync(`${libPath}MaybeError.ts`,`${distPath}MaybeError.ts`);
+// copyFileSync(`${libPath}MessageDialog.ts`,`${distPath}MessageDialog.ts`);
+// copyFileSync(`${libPath}GeneratedBizBase.ts`,`${distPath}GeneratedBizBase.ts`);
+// copyFileSync(`${libPath}ErrorType.ts`,`${distPath}ErrorType.ts`);
+// copyFileSync(`${libPath}Session.ts`,`${distPath}Session.ts`);
+// copyFileSync(`${libPath}ErrorHandler.ts`,`${distPath}ErrorHandler.ts`);
+// copyFileSync(`${libPath}momentExtends.ts`,`${distPath}momentExtends.ts`);
+// copyFileSync(`${libPath}utils.ts`,`${distPath}utils.ts`);
+// copyFileSync(`${libPath}Response.ts`,`${distPath}Response.ts`)
+// copyFileSync(`${libPath}MaybeError.ts`,`${distPath}MaybeError.ts`);
+// copyFileSync(`${libPath}@Rest.ts`,`${distPath}@Rest.ts`);
+// copyFileSync(`${libPath}@Transactional.ts`,`${distPath}@Transactional.ts`);
+// copyFileSync(`${libPath}ConnectionFactory.ts`,`${distPath}ConnectionFactory.ts`);
+// copyFileSync(`${libPath}RecoverableError.ts`,`${distPath}RecoverableError.ts`);
+// copyFileSync(`${libPath}ErrorResult.ts`,`${distPath}ErrorResult.ts`);
 
-// generate
-copyFileSync(`${libPath}web_handler.ts`,`${generatedDir}web_handler.ts`);
-copyFileSync(`${libPath}tokenHandler.ts`,`${generatedDir}tokenHandler.ts`);
-copyFileSync(`${libPath}Response.ts`,`${generatedDir}Response.ts`)
-copyFileSync(`${libPath}ErrorResult.ts`,`${generatedDir}ErrorResult.ts`);
-copyFileSync(`${libPath}ErrorType.ts`,`${generatedDir}ErrorType.ts`);
-copyFileSync(`${libPath}MaybeError.ts`,`${generatedDir}MaybeError.ts`);
+// // generate
+// copyFileSync(`${libPath}web_handler.ts`,`${generatedDir}web_handler.ts`);
+// copyFileSync(`${libPath}tokenHandler.ts`,`${generatedDir}tokenHandler.ts`);
+// copyFileSync(`${libPath}Response.ts`,`${generatedDir}Response.ts`)
+// copyFileSync(`${libPath}ErrorResult.ts`,`${generatedDir}ErrorResult.ts`);
+// copyFileSync(`${libPath}ErrorType.ts`,`${generatedDir}ErrorType.ts`);
+// copyFileSync(`${libPath}MaybeError.ts`,`${generatedDir}MaybeError.ts`);
 
 
 console.log("-------------------------");

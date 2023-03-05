@@ -1,3 +1,4 @@
 node_modules
 .env
 framework/database/docker
+server/dist

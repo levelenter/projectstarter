@@ -1,4 +1,4 @@
-import { Rest } from "../../../framework/lib/@Rest";
+import { Rest } from "./generated/@Rest";
 import { ConfigDTO } from "../dto/ConfigDTO";
 import { Response } from "./generated/Response";
 import config from 'config';

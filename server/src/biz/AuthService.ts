@@ -3,11 +3,11 @@ import jwt from 'jsonwebtoken';
 import { PoolConnection } from 'mysql2/promise';
 import crypto from 'crypto';
 import { Response } from './generated/Response';
-import { Transactional } from '../../../framework/lib/@Transactional';
-import { Rest } from '../../../framework/lib/@Rest';
+import { Transactional } from './generated/@Transactional';
+import { Rest } from './generated/@Rest';
 import { Users } from '../generated/dto/Users';
 import { UsersDao } from '../dao/UserDao';
-import { RecoverableError } from '../../../framework/lib/RecoverableError';
+import { RecoverableError } from './generated/RecoverableError';
 import { AuthUser } from '../dto/AuthUser';
 import { uuid } from 'uuidv4';
 

@@ -50,8 +50,8 @@ generatedRest.post('/v1/AuthService/createUserApi',
 async (req: express.Request, res: express.Response) => {
   const biz = new AuthService();
   try{
-    tokenHandler(req, false, ["mail","password","create_name","auth_tags","belong_to"] );
-    const result = await biz.createUserApi(req.body[0] as string,req.body[1] as string,req.body[2] as string,req.body[3] as string,req.body[4] as string);
+    tokenHandler(req, false, ["mail","password","create_name","auth_tags"] );
+    const result = await biz.createUserApi(req.body[0] as string,req.body[1] as string,req.body[2] as string,req.body[3] as string);
     res.send(result);
   } catch(error) {
     errorHandler(res, error as any);
