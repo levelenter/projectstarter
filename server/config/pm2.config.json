@@ -1,16 +1,16 @@
 {
-  "name": "blockvrock",
+  "name": "starter",
   "script": "server/dist/src/index.js",
   "env": {
     "NODE_ENV": "production",
-    "name": "blockvrock"
+    "name": "starter"
   },
   "env_production": {
     "NODE_ENV": "production",
-    "name": "blockvrock"
+    "name": "starter"
   },
   "env_beta": {
     "NODE_ENV": "betaversion",
-    "name": "blockvrock_beta"
+    "name": "starter"
   }
 }
