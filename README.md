@@ -42,3 +42,26 @@ docker compose exec nginx bash
 
 Dockerコンテナの中からホストマシンのlocalhostに接続する方法
 https://peblo.gs/get-host-machine-ip-address-in-docker-container/
+
+
+Astroからaxiosやfetchやらで、RestAPIを呼ぼうとするとCORSの制限に引っかかる。
+
+ローカルだとClientとServerをそれぞれポートを分けて立てたりするから。
+
+仮に以下のようにするとする
+
+Astro => http://localhost:3000/
+
+Server => http://localhost:8080/api/
+
+Astro側のpackage.jsonに"proxy": "http://localhost:8080/と、サーバーのホストを知らせてやれば良い。
+
+```
+{
+ "name": "sampleservice",
+ "type": "module",
+ "proxy": "http://localhost:8080/,
+ "version": "0.0.1",
+ ・・・
+}
+```
