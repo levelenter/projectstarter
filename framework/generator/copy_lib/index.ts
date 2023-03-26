@@ -1,9 +1,30 @@
 
 import { copyFileSync } from "fs-extra";
-import { config }  from "../config/config"
+import { config }  from "../../lib/config"
+import * as fs from 'fs';
 const distPath = config.output_client +"/biz/";
 const libPath = "./framework/lib/"
 const generatedDir = config.rest_scan_dir + "/generated/"
+
+console.log("-------------------------");
+console.log("- コンフィグコンバート ");
+console.log("-------------------------");
+const getConfigString = ()=>{
+  const configJSON = JSON.stringify(config, null, 2);
+  console.log(configJSON)
+  return configJSON;
+}
+const convertConfigMain =()=>{
+  const configString  = getConfigString();
+  const fileName = "/generatedConfig.json";
+  const client = config.output_client +fileName
+  const server = config.output_server +fileName
+  fs.writeFileSync(client, configString);
+  fs.writeFileSync(server, configString);
+}
+convertConfigMain();
+
+
 
 console.log("-------------------------");
 console.log("- フレームワークコードコピー");
@@ -14,6 +35,7 @@ const copyFileSyncAndLog = (from:string ,to:string)=>{
 }
 copyFileSyncAndLog(`${libPath}MessageDialog.ts`,`${distPath}MessageDialog.ts`);
 copyFileSyncAndLog(`${libPath}GeneratedBizBase.ts`,`${distPath}GeneratedBizBase.ts`);
+copyFileSyncAndLog(`${libPath}restCallApi.ts`,`${distPath}restCallApi.ts`);
 copyFileSyncAndLog(`${libPath}ErrorType.ts`,`${distPath}ErrorType.ts`);
 copyFileSyncAndLog(`${libPath}Session.ts`,`${distPath}Session.ts`);
 copyFileSyncAndLog(`${libPath}ErrorHandler.ts`,`${distPath}ErrorHandler.ts`);

@@ -1,6 +1,6 @@
 import { MetaMethod } from './MetaMethod';
 import { distinctArray, flatArray } from './common';
-import { config }  from "../config/config"
+import { config }  from "../../lib/config"
 
 const frameWorkBizDir = "../";
 
@@ -60,7 +60,7 @@ export class MetaClass {
 
     let str = '';
     str += impotsAll.join('\n\n\n') + "\n";
-    str += `const getHost = ()=>{return location.hostname === "localhost" ? "${config.hosts.development}" : "${config.hosts.production}" } \n\n`
+    // str += `const getHost = ()=>{return location.hostname === "localhost" ? "${config.hosts.development}" : "${config.hosts.production}" } \n\n`
     str += `export class ${this.name} extends GeneratedBizBase{\n`;
     str += this.methods.map((m) => m.toClientDefString()).join('');
     str += `}\n`;

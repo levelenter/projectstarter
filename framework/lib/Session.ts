@@ -1,6 +1,5 @@
 import { MessageDialog } from './MessageDialog';
 // import jwt from 'jsonwebtoken';
-
 type SESSION_KEYS = 'session_user' | 'skechfab_code';
 
 export class Session {
@@ -11,6 +10,7 @@ export class Session {
   static onTimeout() {
     sessionStorage.clear();
     MessageDialog.alert('セッションタイムアウトしました');
+    
     // location.reload();
   }
 

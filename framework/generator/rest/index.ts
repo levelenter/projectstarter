@@ -6,7 +6,7 @@ import {
   ignoreTokenFileCreate,
 } from "./generateExpressRouter";
 import { checkDecorater } from "./checkDecorater";
-import { config }  from "../config/config"
+import { config }  from "../../lib/config"
 // import { copyFileSync } from "fs-extra";
 import { createIfNotExist } from './restUtil';
 

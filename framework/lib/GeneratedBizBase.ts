@@ -1,10 +1,12 @@
 import Axios, { AxiosInstance } from 'axios';
 import { Response } from './Response';
 import { Session } from './Session';
-import { restCallApi } from './restCallApi';
+import { restCallApi ,getHost } from './restCallApi';
 
 export class GeneratedBizBase {
   private _token!: string;
+
+  public static getHost = () =>  getHost
 
   // ユニットテスト時にSessionからトークンが取れないためインジェクトしてからやる
   get token(): string {

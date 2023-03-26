@@ -5,6 +5,7 @@ const config = {
     createdSqlFile: './data/create_table.sql',
     rest_scan_dir : "./data/sample",
     output_client: "./dist/client",
-    output_server: "./dist/server"
+    output_server: "./dist/server",
+    hosts: { "development": "http://localhost:8888", "production": "https://on-boarding.com/api"} // 最後のスラッシュは不要
 };
 exports.default = config;

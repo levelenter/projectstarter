@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { config }  from "../config/config"
+import { config }  from "../../lib/config"
 import { createIfNotExist } from './restUtil';
 
 const DTO_DIR_FILES_PATH = config.rest_scan_dir;

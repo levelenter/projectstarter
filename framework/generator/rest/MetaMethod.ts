@@ -87,7 +87,7 @@ export class MetaMethod {
       this.returnType
     } {\n`;
     str += `    return super.restCall<${this.notPromiseReturnType}>`;
-    str += `(${this.httpMethod}, getHost() + ${this.uri}, arguments);\n`;
+    str += `(${this.httpMethod}, GeneratedBizBase.getHost() + ${this.uri}, arguments);\n`;
     str += `  }\n`;
     return str;
   }

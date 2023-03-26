@@ -1,22 +1,23 @@
 import { MessageDialog } from './MessageDialog';
 // import jwt from 'jsonwebtoken';
-
 type SESSION_KEYS = 'session_user' | 'skechfab_code';
 
 export class Session {
   static logout() {
     sessionStorage.clear();
   }
-  static timeout() {
+  
+  static onTimeout() {
     sessionStorage.clear();
     MessageDialog.alert('セッションタイムアウトしました');
-    location.reload();
+    
+    // location.reload();
   }
 
-  static reAuthorize() {
+  static onReAuthorize() {
     sessionStorage.clear();
     MessageDialog.alert('もう一度認証してください');
-    location.reload();
+    // location.reload();
   }
 
   static get isAuthorized(): boolean {
