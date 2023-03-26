@@ -59,7 +59,8 @@ export class MetaClass {
     console.log(impotsAll);
 
     let str = '';
-    str += impotsAll.join('\n\n\n');
+    str += impotsAll.join('\n\n\n') + "\n";
+    str += `const getHost = ()=>{return location.hostname === "localhost" ? "${config.hosts.development}" : "${config.hosts.production}" } \n\n`
     str += `export class ${this.name} extends GeneratedBizBase{\n`;
     str += this.methods.map((m) => m.toClientDefString()).join('');
     str += `}\n`;

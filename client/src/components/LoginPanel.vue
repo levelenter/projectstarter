@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import Axios from 'axios';
 import { AuthService } from '../generated/biz/remote/AuthService';
+import { MessageDialog } from "../generated/biz/MessageDialog";
 const mail = ref("")
 const password = ref("")
 const login = async ()=>{
@@ -9,7 +10,7 @@ const login = async ()=>{
     mail:  mail.value,
     password: password.value
   }
-  const response = await Axios.post<{"ok":string}>("/api/login", data)
+  const response = await Axios.post<{"ok":string}>("http://localhost:8888/login", data)
     .catch(error=>{
       alert(error.message)
     })
@@ -20,15 +21,26 @@ const login = async ()=>{
 
 const test = async ()=>{
   console.log("test");
-  const response = await Axios.get("/api/test");
-  const json = response.data;
-  console.log(json);
+  try{
+    const response = await Axios.get("http://localhost:8888/test");
+    const json = response.data;
+    console.log(json);
+  }catch(e){
+    MessageDialog.info("エラー",e.message)
+    console.log(e);
+  }
 }
 const authTest = async ()=>{
-  console.log("test");
-  const response = await Axios.post("/api/test_auth");
-  const json = response.data;
-  console.log(json);
+  try{
+    console.log("test");
+    const response = await Axios.post("http://localhost:8888/test_auth");
+    const json = response.data;
+    console.log(json);
+  }catch(e){
+    MessageDialog.info("エラー",e.message)
+    console.log(e);
+  }
+
 }
 
 const getUser = async ()=>{
@@ -38,9 +50,12 @@ const getUser = async ()=>{
 }
 
 const getConfig = async ()=>{
-  const response = await Axios.post("/api/config");
+  const response = await Axios.post("http://localhost:8888/config");
   const json = response.data;
   console.log(json);
+}
+const message = async ()=>{
+  MessageDialog.info("message",true)
 }
 
 
@@ -54,7 +69,9 @@ const getConfig = async ()=>{
     <button class="btn" @click="test">testボタン</button>
     <button class="btn" @click="authTest">authTestButton</button>
     <button class="btn" @click="getUser">getuser</button>
+    <button class="btn" @click="message">Message</button>
   </div>
+
 </template>
 <style>
 .btn {

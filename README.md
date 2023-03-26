@@ -35,3 +35,10 @@ docker compose up -d
  docker-compose exec starter_server bash
 ```
 
+コンソールに入る
+```
+docker compose exec nginx bash
+```
+
+Dockerコンテナの中からホストマシンのlocalhostに接続する方法
+https://peblo.gs/get-host-machine-ip-address-in-docker-container/

@@ -5,6 +5,7 @@ const config = {
     createdSqlFile: './framework/database/create_table.sql',
     rest_scan_dir : "./server/src/biz",
     output_client: "./client/src/generated",
-    output_server: "./server/src/generated"
+    output_server: "./server/src/generated",
+    hosts: { "development": "http://localhost:8888/", "production": "https://on-boarding.com/api/"}
 };
 exports.default = config;

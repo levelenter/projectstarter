@@ -49,7 +49,7 @@ userAuthRouter.get("/test", async(req, res, next)=>{
 })
 
 userAuthRouter.post("/test_auth", passport.authenticate('jwt', { session: false }),async(req, res, next)=>{
-  console.log("test")
+  console.log("test auth")
   res.json({ ok :"ok" });
 })
 

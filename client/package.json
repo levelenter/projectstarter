@@ -1,6 +1,7 @@
 {
 	"name": "whole-wind",
 	"type": "module",
+	"proxy": "http://localhost:8888",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "astro dev",

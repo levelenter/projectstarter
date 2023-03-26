@@ -1,16 +1,16 @@
 {
-  "name": "starter",
+  "name": "onboarding",
   "script": "server/dist/src/index.js",
   "env": {
     "NODE_ENV": "production",
-    "name": "starter"
+    "name": "onboarding"
   },
   "env_production": {
     "NODE_ENV": "production",
-    "name": "starter"
+    "name": "onboarding"
   },
   "env_beta": {
     "NODE_ENV": "betaversion",
-    "name": "starter"
+    "name": "onboarding"
   }
 }

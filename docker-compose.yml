@@ -1,11 +1,5 @@
 version: '3.7'
 services:
-  nginx:
-    build: ./nginx
-    container_name: starter_nginx
-    ports:
-      - 8081:80
-    tty: true
   # client:
   #   build: ./client
   #   container_name: starter_client
@@ -25,8 +19,7 @@ services:
   #   # tty: true
   db:
     image: mysql:8.0
-    container_name: starter_db
-    #build: ./database
+    container_name: onboarding_db
     volumes:
       - ./framework/database/docker/logs:/var/log/mysql
       - ./framework/database/docker/data:/var/lib/mysql
@@ -34,7 +27,7 @@ services:
       - ./framework/database/:/docker-entrypoint-initdb.d
       # - ./database/init:/docker-entrypoint-initdb.d
     environment:
-      - MYSQL_DATABASE=starter
+      - MYSQL_DATABASE=onboarding
       - MYSQL_USER=levelenter
       - MYSQL_PASSWORD=levelenter
       - MYSQL_ROOT_PASSWORD=root
