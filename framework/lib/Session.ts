@@ -1,5 +1,7 @@
 import { MessageDialog } from './MessageDialog';
+import { config } from './config';
 // import jwt from 'jsonwebtoken';
+import { getApiHost } from './restCallApi';
 type SESSION_KEYS = 'session_user' | 'skechfab_code';
 
 export class Session {
@@ -10,14 +12,14 @@ export class Session {
   static onTimeout() {
     sessionStorage.clear();
     MessageDialog.alert('セッションタイムアウトしました');
-    
-    // location.reload();
+    location.href = config.timeout;
   }
 
   static onReAuthorize() {
     sessionStorage.clear();
     MessageDialog.alert('もう一度認証してください');
     // location.reload();
+    location.href = config.timeout;
   }
 
   static get isAuthorized(): boolean {

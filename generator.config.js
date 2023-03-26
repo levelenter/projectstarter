@@ -6,7 +6,10 @@ const config = {
     rest_scan_dir : "./server/src/biz",
     output_client: "./client/src/generated",
     output_server: "./server/src/generated",
-    hosts: { "development": "http://localhost:8888", "production": "https://on-boarding.com/api"}, // 最後のスラッシュは不要
+    hosts: {  // 最後のスラッシュは不要
+        "development": { client:"http://localhost:3000", server:"http://localhost:8888" }, 
+        "production": { client:"https://on-boarding.com/api", server:"https://on-boarding.com/api" }
+    }, 
     timeout_page : "/timeout",
 };
 exports.default = config;

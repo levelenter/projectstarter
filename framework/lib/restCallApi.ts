@@ -5,7 +5,7 @@ import { ErrorType } from './ErrorType';
 import { ErrorHandler } from "./ErrorHandler";
 import { config } from "./config";
 
-export const getHost = () => {return location.hostname === "localhost" ? config.hosts.development :  config.hosts.production } 
+export const getApiHost = () => {return location.hostname === "localhost" ? config.hosts.development.server :  config.hosts.production.server } 
 
 export const restCallApi = async <T extends Response<any>> (
   method: 'get' | 'post' | 'put' | 'delete',
