@@ -1,29 +1,29 @@
-import { MessageDialog } from './MessageDialog';
+import { MessageDialog } from "./MessageDialog";
+import { config } from "./config";
 // import jwt from 'jsonwebtoken';
-import { getApiHost } from './restCallApi';
-type SESSION_KEYS = 'session_user' | 'skechfab_code';
+import { getApiHost } from "./restCallApi";
+type SESSION_KEYS = "session_user" | "skechfab_code";
 
 export class Session {
   static logout() {
     sessionStorage.clear();
   }
-  
+
   static onTimeout() {
     sessionStorage.clear();
-    MessageDialog.alert('セッションタイムアウトしました');
-    location.href = "/timeout"
-    // location.reload();
+    MessageDialog.alert("セッションタイムアウトしました");
+    location.href = config.timeout_page;
   }
 
   static onReAuthorize() {
     sessionStorage.clear();
-    MessageDialog.alert('もう一度認証してください');
+    MessageDialog.alert("もう一度認証してください");
     // location.reload();
-    location.href = "/timeout"
+    location.href = config.timeout_page;
   }
 
   static get isAuthorized(): boolean {
-    const user = this.get<string>('session_user');
+    const user = this.get<string>("session_user");
     if (!user) return false;
     return true;
   }
@@ -62,20 +62,18 @@ export class Session {
     }
   }
 
-  static getSessionUser() {
-    const token = Session.getSessionToken();
-    const user = {}; // jwt.decode(token);
-    return user;
-  }
-
-  static getSessionToken() {
-    const user = Session.get<any>('session_user');
-    if (!user) return {};
+  static getSessionUser(): any {
+    const user = Session.get("session_user");
     return user;
   }
 
   static getJwtToken(): string {
-    return this.getSessionToken();
+    const user = this.getSessionUser() as any;
+    if (user) {
+      return user.token;
+    } else {
+      return "";
+    }
   }
 
   static toString(): string {

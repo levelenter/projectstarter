@@ -27,13 +27,13 @@ services:
       - ./framework/database/:/docker-entrypoint-initdb.d
       # - ./database/init:/docker-entrypoint-initdb.d
     environment:
-      - MYSQL_DATABASE=onboarding
+      - MYSQL_DATABASE=app
       - MYSQL_USER=levelenter
       - MYSQL_PASSWORD=levelenter
       - MYSQL_ROOT_PASSWORD=root
       - TZ=Asia/Tokyo
     command: --default-authentication-plugin=mysql_native_password
     ports:
-      - 3307:3306 
+      - 3309:3306 
     restart: always
     tty: true

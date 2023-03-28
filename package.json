@@ -6,12 +6,13 @@
   "scripts": {
     "c:dev": "cd client/ && npm run dev",
     "c:start": "cd client/ && npm run start",
-    "c:build": "cd client/ && npm run build", 
+    "c:build": "cd client/ && npm run build",
     "c:preview": "cd client/ && npm run preview",
     "c:astro": "cd client/ && npm run astro",
     "s:dev": "cd server/ && npm run dev",
     "s:build": "cd server/ && npm run build",
     "s:kill": "cd server/ && npm run kill",
+    "s:t": "cd server/ && npm run t",
     "prod": "npm run c:build && npm run s:build && npm run prod:start",
     "prod:start": "pm2 start server/config/pm2.config.json --env production",
     "all": "cd framework && npm run lib && npm run entity && npm run rest && npm run sql",
@@ -38,6 +39,7 @@
     "leaf_generator": "github:levelenter/leaf-generator",
     "mysql": "^2.18.1",
     "mysql2": "^3.1.2",
+    "openai": "^3.2.1",
     "passport-google-oauth": "^2.0.0",
     "uuidv4": "^6.2.13"
   },

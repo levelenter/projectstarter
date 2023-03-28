@@ -28,7 +28,9 @@ export function Transactional(
     descriptor.value = async function (...args: any[]) {
       // console.log("decorate before!");
 
+      // 2023/3/27 ここでコネクションを設定しても、メソッドないではundefinedになる
       target[conPropertyName] = await new ConnectionFactory().getConnection();
+
       // console.log("before start transaction!");
       target[conPropertyName].beginTransaction();
       // console.log("after start transaction!");

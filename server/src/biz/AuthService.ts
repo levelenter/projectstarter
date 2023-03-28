@@ -1,15 +1,15 @@
-
-import jwt from 'jsonwebtoken';
-import { PoolConnection } from 'mysql2/promise';
-import crypto from 'crypto';
-import { Response } from './generated/Response';
-import { Transactional } from './generated/@Transactional';
-import { Rest } from './generated/@Rest';
-import { Users } from '../generated/dto/Users';
-import { UsersDao } from '../dao/UserDao';
-import { RecoverableError } from './generated/RecoverableError';
-import { AuthUser } from '../dto/AuthUser';
-import { uuid } from 'uuidv4';
+import jwt from "jsonwebtoken";
+import { PoolConnection } from "mysql2/promise";
+import crypto from "crypto";
+import { Response } from "./generated/Response";
+import { Transactional } from "./generated/@Transactional";
+import { Rest } from "./generated/@Rest";
+import { Users } from "../generated/dto/Users";
+import { UsersDao } from "../dao/UserDao";
+import { RecoverableError } from "./generated/RecoverableError";
+import { AuthUser } from "../dto/AuthUser";
+import { uuid } from "uuidv4";
+import { ConnectionFactory } from "./generated/ConnectionFactory";
 
 export class AuthService {
   connection!: PoolConnection;
@@ -20,9 +20,9 @@ export class AuthService {
    * @returns
    */
   static hashPassword(password: string): string {
-    const sha512 = crypto.createHash('sha512');
+    const sha512 = crypto.createHash("sha512");
     sha512.update(password);
-    const hash = sha512.digest('base64');
+    const hash = sha512.digest("base64");
     return hash;
   }
 
@@ -38,16 +38,14 @@ export class AuthService {
       name: name,
       userId: userId,
     };
-    const PRIVATEKEY =  "levelenter!!"
+    const PRIVATEKEY = "levelenter!!";
     const token = jwt.sign(payload, PRIVATEKEY, {
-      algorithm: 'HS256',//RS256 // RSだと公開鍵と秘密鍵が必要
-      expiresIn: '2h',
-      subject: 'Access Token',
+      algorithm: "HS256", //RS256 // RSだと公開鍵と秘密鍵が必要
+      expiresIn: "2h",
+      subject: "Access Token",
     });
-   return token;
+    return token;
   }
-
-
 
   async onLoginSuccess(user: Users, con: PoolConnection): Promise<void> {
     // ログインカウントを更新
@@ -56,53 +54,69 @@ export class AuthService {
     try {
       await dao.updateLoginCount(login_count, user.user_id!);
     } catch (error) {
-      console.error('ログインカウントの更新に失敗');
+      console.error("ログインカウントの更新に失敗");
       throw error;
     }
   }
 
-  @Rest('/v1/AuthService/getLoginUserInfo', 'get', true)
-  @Transactional('connection')
+  @Rest("/v1/AuthService/getLoginUserInfo", "get", true)
+  @Transactional("connection")
   async getLoginUserInfo(mail: string): Promise<Response<AuthUser>> {
     // const dao = new UsersDao(this.connection);
     // const results = await dao.getUserByMail(mail);
     // const user = results[0];
     // if (!user) throw new RecoverableError('メールアドレスが間違っています');
     // const authUser = AuthUser.fromUser(user, this.createJwtToken(user.name!, user.user_id!));
-    return new Response<any>({ok:"ok"})
+    return new Response<any>({ ok: "ok" });
   }
 
-  @Rest('/v1/AuthService/forceLogin', 'post', true)
-  @Transactional('connection')
+  @Rest("/v1/AuthService/forceLogin", "post", true)
+  @Transactional("connection")
   async forceLogin(mail: string): Promise<Response<AuthUser>> {
-    console.log('login', mail);
+    console.log("login", mail);
 
     const dao = new UsersDao(this.connection);
     const results = await dao.getUserByMail(mail);
     const user = results[0];
-    if (!user) throw new RecoverableError('メールアドレスが間違っています');
-    console.log('force login user', user);
+    if (!user) throw new RecoverableError("メールアドレスが間違っています");
+    console.log("force login user", user);
     await this.onLoginSuccess(user, this.connection);
-    const authUser = AuthUser.fromUser(user, this.createJwtToken(user.name!, user.user_id!));
+    const authUser = AuthUser.fromUser(
+      user,
+      this.createJwtToken(user.name!, user.user_id!)
+    );
     return new Response<AuthUser>(authUser);
   }
 
-  @Rest('/v1/AuthService/login', 'get', false)
-  @Transactional('connection')
-  async login(mail: string, password: string): Promise<Response<AuthUser>> {
-    console.log('login', mail, password);
+  message = "";
 
-    const hash = AuthService.hashPassword(password);
-    const dao = new UsersDao(this.connection);
-    const results = await dao.loginCheck(mail, hash);
-    let user = results[0];
-    if (!user) {
-      throw new RecoverableError('メールアドレスまたはパスワードが間違っています[v1 try]');
+  @Rest("/v1/AuthService/login", "get", false)
+  @Transactional("connection")
+  async login(mail: string, password: string): Promise<Response<AuthUser>> {
+    try {
+      console.log("login", mail, password);
+
+      const hash = AuthService.hashPassword(password);
+      const dao = new UsersDao(this.connection);
+      const results = await dao.loginCheck(mail, hash);
+      let user = results[0];
+      if (!user) {
+        console.log("メールアドレスまたはパスワードが間違っています");
+        throw new RecoverableError(
+          "メールアドレスまたはパスワードが間違っています"
+        );
+      }
+      console.log("login user", user);
+      await this.onLoginSuccess(user, this.connection);
+      const authUser = AuthUser.fromUser(
+        user,
+        this.createJwtToken(user.name!, user.user_id!)
+      );
+      return new Response<AuthUser>(authUser);
+    } catch (e) {
+      console.error(e);
+      throw e;
     }
-    console.log('login user', user);
-    await this.onLoginSuccess(user, this.connection);
-    const authUser = AuthUser.fromUser(user, this.createJwtToken(user.name!, user.user_id!));
-    return new Response<AuthUser>(authUser);
   }
 
   /**
@@ -110,8 +124,8 @@ export class AuthService {
    * user/createAccount
    * userApi.createAccount このメソッド内でtoken発行まで実施
    */
-  @Rest('/v1/AuthService/createUserApi', 'post', false)
-  @Transactional('connection')
+  @Rest("/v1/AuthService/createUserApi", "post", false)
+  @Transactional("connection")
   async createUserApi(
     mail: string,
     password: string,
@@ -119,19 +133,20 @@ export class AuthService {
     auth_tags: string
   ): Promise<Response<AuthUser>> {
     // メールアドレスが入力されていない
-    if (!mail) throw new RecoverableError('メールアドレスを入力してください');
+    if (!mail) throw new RecoverableError("メールアドレスを入力してください");
 
     const dao = new UsersDao(this.connection);
     const results = await dao.getUserByMail(mail);
 
     // メールアドレスチェック
-    if (results.length > 0) throw new RecoverableError('すでに存在するメールアドレスです。');
+    if (results.length > 0)
+      throw new RecoverableError("すでに存在するメールアドレスです。");
     const hash = AuthService.hashPassword(password);
 
     const user_id = uuid();
-    await dao.insertUser(user_id,create_name, mail, hash, auth_tags,"");
+    await dao.insertUser(user_id, create_name, mail, hash, auth_tags, "");
     const authUser = new AuthUser();
-    authUser.user_id = user_id
+    authUser.user_id = user_id;
     authUser.user_name = create_name;
     authUser.auth_tags = auth_tags;
     authUser.token = this.createJwtToken(create_name, user_id);

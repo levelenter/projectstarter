@@ -4,13 +4,10 @@
   "server_port": 8888,
   "db": {
     "host": "127.0.0.1",
-    "database": "onboarding",
-    "port": 3307,
+    "database": "app",
+    "port": 3309,
     "user": "levelenter",
-    "password": "levelenter",
-    "ssl": {
-      "ca": "."
-    }
+    "password": "levelenter"
   },
   "log": {
     "path": "./log/blockvrock.log",

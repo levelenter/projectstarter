@@ -11,5 +11,4 @@ export class ConfigService {
     configObject.port = config.get<string>("server_port");
     return new Response<ConfigDTO>(configObject);
   }
-  
 }

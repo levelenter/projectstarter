@@ -1,48 +1,56 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { Session } from "./Session";
 import { Response } from "./Response";
-import { ErrorType } from './ErrorType';
+import { ErrorType } from "./ErrorType";
 import { ErrorHandler } from "./ErrorHandler";
 import { config } from "./config";
 
-export const getApiHost = () => {return location.hostname === "localhost" ? config.hosts.development.server :  config.hosts.production.server } 
+export const getApiHost = () => {
+  return location.hostname === "localhost"
+    ? config.hosts.development.server
+    : config.hosts.production.server;
+};
 
-export const restCallApi = async <T extends Response<any>> (
-  method: 'get' | 'post' | 'put' | 'delete',
+export const restCallApi = async <T extends Response<any>>(
+  method: "get" | "post" | "put" | "delete",
   path: string,
   sendData: any,
-  token:string
+  token: string
 ): Promise<T> => {
   let response;
+
   // トークンが取れないならログアウトしてリロード（ログインしなおして同じ画面へ移動してくる）
   // 送るデータにトークンをセット
   sendData.token = token;
+  // クッキーを使用する場合は、withCredentialsをtrueに設定する
+  axios.defaults.withCredentials = true;
 
-  let param = sendData;
+  let param: AxiosRequestConfig = { params: sendData, withCredentials: true };
   try {
     switch (method) {
-      case 'get':
-        param = { params: sendData };
+      case "get":
+        console.log("get", param);
         response = await axios.get<T>(path, param);
         break;
-      case 'post':
+      case "post":
+        console.log("post", param);
         response = await axios.post<T>(path, param);
         break;
-      case 'put':
+      case "put":
         response = await axios.put<T>(path, param);
         break;
-      case 'delete':
+      case "delete":
         response = await axios.delete<T>(path, param);
         break;
     }
   } catch (e) {
     const error = `${e}`;
-    console.info(error.includes('403'));
+    console.info(error.includes("403"));
 
-    if (error.includes('403') === true) {
+    if (error.includes("403") === true) {
       Session.onTimeout();
     }
-    if (error.includes('401') === true) {
+    if (error.includes("401") === true) {
       Session.onReAuthorize();
     }
     throw new Error(error);
@@ -54,7 +62,4 @@ export const restCallApi = async <T extends Response<any>> (
     return response.data;
   }
   return response.data;
-}
-
-
-
+};
